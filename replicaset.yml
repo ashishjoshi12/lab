@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hellowhale-rs
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+       - {key: app, operator: In, values: [hellowhale-app]}
+  template:
+    metadata:
+      name: hellowhale-pod
+      labels:
+        app: hellowhale-app
+        version: blue
+    spec:
+      containers:
+      - name: hello-whale-container
+        image: vamsijakkula/hellowhale:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
